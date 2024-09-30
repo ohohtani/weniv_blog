@@ -2,8 +2,7 @@
 
 백준 기본 코스 한 바퀴 돌았기 때문에 다시 백준하기 싫어서 아직 손도 안 댄 프로그래머스 Lv.1 부터 시작하겠습니다
 
-1일차 (2024.09.30)
-
+1일차 (2024.09.30) [그리디 알고리즘 1/6]
 ![문제 설명](img/체육복_문제_설명.jpg)
 
 문제 요약 : 체육복 하나 더 있는 사람은 앞 or 뒤 번호한테만 빌려줄 수 있다.
@@ -23,10 +22,10 @@
 
 ``` python
 def solution(n, lost, reserve):
-    real_lost = sorted(set(lost) - set(reserve))
-    real_reserve = sorted(set(reserve) - set(lost))
+    real_lost = sorted(set(lost) - set(reserve))         # 둘다 포함 되어 있으면 빼줘야댐
+    real_reserve = sorted(set(reserve) - set(lost))      # 정렬을 해야 쉽게 순회 가능  
 
-    answer = n - len(real_lost)
+    answer = n - len(real_lost)                          # 체육복 있는 사람 => 전체 학생 - 없는 사람
     
     for i in real_lost:
         if i-1 in real_reserve:
