@@ -44,4 +44,24 @@ def solution(n, lost, reserve):
 # 스택, 큐
 
 [스택, 큐 알고리즘 1/6]
+![문제 설명](img/스택큐문제설명1.png)
+
+문제 요약 : 연속된 숫자는 하나만 출력 시키는 배열로 만들어라
+
+주의 사항 : 딱히 없음
+
+어차피 첫 번째 원소는 정답 배열에 무조건 추가되므로 박아 놓고 시작.
+
+그리고 두 번째 원소부터 반복문을 시작해서 이전의 원소와 다르면 정답 배열에 추가해주면 끝.
+
+```python
+def solution(arr):
+    answer = [arr[0]]  # 첫 번째 요소는 박아 놓고 시작
+
+    for i in range(1, len(arr)):  # 두 번째 요소부터 시작
+        if arr[i] != arr[i - 1]:  # 이전 요소와 다를 때만 추가하기
+            answer.append(arr[i])
+
+    return answer
+```
 
