@@ -84,3 +84,18 @@ def solution(nums):
 ```
 
 너무 짧게 나와서 뭔가 잘못된 줄 알고 다른 사람들 풀이 찾아봤는데 다들 똑같이 푸셨다.
+
+### [해시 알고리즘 2/6]
+![문제 설명](img/해시2_문제설명.png)
+
+**문제 요약** : N/2 마리만 가져가는데 최대한 다른 종류로 가져갔을 때 종류 수의 최댓값(?) 한국어는 확실히 어렵다
+
+**주의 사항** : 문제를 이해할 능력 요구
+
+```python
+from collections import Counter
+
+def solution(participant, completion):
+    result = Counter(participant) - Counter(completion)
+    return next(iter(result))
+```
