@@ -85,17 +85,20 @@ def solution(nums):
 
 너무 짧게 나와서 뭔가 잘못된 줄 알고 다른 사람들 풀이 찾아봤는데 다들 똑같이 푸셨다.
 
+
 ### [해시 알고리즘 2/6]
 ![문제 설명](img/해시2_문제설명.png)
 
-**문제 요약** : N/2 마리만 가져가는데 최대한 다른 종류로 가져갔을 때 종류 수의 최댓값(?) 한국어는 확실히 어렵다
+**문제 요약** : 참가자 배열에서 완주자 배열 빼고 완주 못 한 한명을 출력해라 (완주자 배열은 참가자 배열보다 딱 1명 적게 세팅됨)
 
-**주의 사항** : 문제를 이해할 능력 요구
+**주의 사항** : 동명이인 있음 주의, Counter 함수를 쓸 줄 아는가
+
+그냥.. 간단하다. 참가자에서 완주자 빼고 안에 있는 요소만 출력시키면 됨 (리스트로 출력하면 틀림)
 
 ```python
-from collections import Counter
+from collections import Counter        # 리스트의 요소와 개수를 저장시킬 수 있는 Counter 를 import
 
 def solution(participant, completion):
-    result = Counter(participant) - Counter(completion)
-    return next(iter(result))
+    result = Counter(participant) - Counter(completion)    
+    return next(iter(result))          # Counter에서 이터레이터를 만들면 키(key)에 대해서만 순회함. ★★
 ```
