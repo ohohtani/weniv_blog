@@ -104,3 +104,20 @@ def solution(participant, completion):
     result = Counter(participant) - Counter(completion)    
     return next(iter(result))          # Counter에서 이터레이터를 만들면 키(key)에 대해서만 순회함. ★★
 ```
+
+
+# 완전 탐색
+### [완전 탐색 알고리즘 1/6]
+![문제 설명](img/최소_직사각형.png)
+
+**문제 요약** : 지갑에 명함을 센스있게 쑤셔 넣어라
+
+**주의 사항** : 이걸 얼마나 간단하게 나타낼 수 있을까
+
+명함을 눕혀서 넣는 경우도 고려해야 하니, 가장 작은 지갑으로 만들려면 배열 한쪽라인에 큰값을 몰아넣고
+남은 한쪽라인에는 작은값을 몰아넣어서 각 라인에서 최댓값을 추출한 후 곱해주면 될 것 같다.
+
+```python
+def solution(sizes):
+    return max(max(x) for x in sizes) * max(min(x) for x in sizes)
+```
