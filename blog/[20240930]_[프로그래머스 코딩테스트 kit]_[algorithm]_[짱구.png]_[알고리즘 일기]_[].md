@@ -121,3 +121,71 @@ def solution(participant, completion):
 def solution(sizes):
     return max(max(x) for x in sizes) * max(min(x) for x in sizes)
 ```
+
+
+# 깊이/너비 우선 탐색(DFS/BFS)
+### [깊이/너비 우선 탐색(DFS/BFS) 알고리즘 1/6 : 게임 맵 최단거리]
+
+문제 설명은 프로그래머스 사이트 참조
+
+**문제 요약** : 목표 지점까지 가는 최단 경로를 구하라
+
+**주의 사항** : BFS 사전 지식 없으면 그냥 풀기는 너무 어려울 듯
+
+BFS에 대한 깨달음만 있다면 원리를 이해하고 풀 수 있겠지만, 그렇다고 해서 머릿 속 지식만으로 술술 풀어내는 건 쉽지 않다ㅠㅠ
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+나는 이거 이해하는 데에도 꽤나 시간이 걸렸는데, 2차원 배열에서의 좌표 체계가 좀 다르기 때문이다
+
+![좌표 체계](img/2차원배열좌표체계.png)
+
+이런 식이라서 그냥 수학에서 쓰던 좌표 평면 상으로만 대입하면 어지러워진다.
+이 체계를 알고 나면 상하좌우 개념이 잡혀서 코드를 이어나갈 수 있다.
+
+```python
+from collections import deque   # 큐를 사용하기 위해 import
+def solution(maps):
+    answer = 0
+
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
+
+    def bfs(x, y):
+        queue = deque()
+        queue.append((x,y))
+
+        while queue:                # 큐가 빌 때까지
+            x, y = queue.popleft()  # 먼저 들어온 놈 탐색하기
+
+            
+            for i in range(4):      # 상하좌우를 탐색
+                nx = x + dx[i]      # 저장된 좌표에서 dx dy 배열 돌면서
+                ny = y + dy[i]      # 탐색된 상하좌우 값으로 nx, ny를 업데이트
+
+                if nx < 0 or nx >= len(maps) or ny < 0 or ny >= len(maps[0]) : continue  # 맵을 벗어나면 무시
+
+                if maps[nx][ny] == 0 : continue # 벽면이면 무시합니다 (BFS에서, 방문하지 않은 길은 항상 1로 저장되어 있습니다.)
+
+                if maps[nx][ny] == 1:
+                    maps[nx][ny] = maps[x][y] + 1
+                    queue.append((nx, ny))
+
+        return maps[len(maps)-1][len(maps[0])-1]
+    
+    answer = bfs(0,0)
+    
+    if answer == 1:
+        return -1
+    else:
+        return answer
+```
+
+시작지점부터 도착지점까지 도달하는 과정을 글로 써보자면,
+시작지점에서 상하좌우를 탐색한다. 탐색한 곳이 벽면이거나, 맵을 벗어나거나, 이미 방문한 길이라면 무시하고
+방문하지 않은 길이라면 그 좌표를 큐에 집어 넣는다. 
+큐에 가장 먼저 들어온 놈의 좌표로 이동한 뒤, 그 지점의 값을 +1 시켜준다. (특정 지역의 거리를 갱신)
+이 과정을 큐가 비어있을 때까지 반복해준 뒤, 목표 지점의 거리 값을 출력 시킨다.
+
+아마 지금 당장 안 보고 다시 풀라고 해도 못 풀 것 같아서, BFS/DFS 유형 완벽해질 때까지 매일 풀어야 할 것 같다.
